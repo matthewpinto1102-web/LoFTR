@@ -87,7 +87,10 @@ If you want to run LoFTR-OT, some extra steps are needed:
   # Initialize LoFTR
   matcher = LoFTR(config=default_cfg)
   matcher.load_state_dict(torch.load("weights/indoor_ds.ckpt")['state_dict'])
-  matcher = matcher.eval().cuda()
+
+  # If CUDA is unavailable or your hardware is limited, switch to CPU to bypass GPU setup.
+  # Replace .cuda() with .cpu() if needed.
+  matcher = matcher.eval().cpu()
 
   # Inference
   with torch.no_grad():
@@ -95,6 +98,8 @@ If you want to run LoFTR-OT, some extra steps are needed:
       mkpts0 = batch['mkpts0_f'].cpu().numpy()
       mkpts1 = batch['mkpts1_f'].cpu().numpy()
   ```
+
+  Note: For CPU-only environments or machines without compatible GPU support, use `.cpu()` instead of `.cuda()`. This avoids GPU configuration issues while still allowing inference to run.
 
 </details>
 
