@@ -1,0 +1,12 @@
+{
+    "dataset": "ScanNet-1500",
+    "model": "LoFTR indoor dual-softmax",
+    "num_pairs": 1500,
+    "failed_pairs": 74,
+    "auc_5": 0.2152,
+    "auc_10": 0.4037,
+    "auc_20": 0.5718,
+    "median_pose_error_deg": 5.124686963421755,
+    "average_matches": 962.076,
+    "average_ransac_inliers": 439.7386666666667
+}
