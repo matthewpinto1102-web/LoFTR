@@ -47,32 +47,65 @@ git clone https://github.com/matthewpinto1102-web/LoFTR
 cd LoFTR
 git checkout reproduction-baseline
 ```
+
 ## 4. Setup the Environment
 
 ### Step 1: Create and Register Environment
-#conda env create -f environment.yaml
+
+Create and activate the LoFTR Conda environment:
+
+```bash
+conda env create -f environment.yaml
 conda activate loftr
+```
 
-# Fix PyYAML compatibility with pytorch-lightning 1.3.5
+**Fix PyYAML compatibility with PyTorch Lightning 1.3.5:**
+
+```bash
 pip install PyYAML==5.4.1 --force-reinstall
+```
 
-# Install and register the Jupyter kernel for VS Code / Jupyter
+**Install and register the Jupyter kernel for VS Code / Jupyter:**
+
+```bash
 pip install ipykernel
 python -m ipykernel install --user --name=loftr --display-name "Python (LoFTR)"
+```
 
-### Step 2 Download Pretrained Weights & Benchmark Datasets
-# Download the pretrained checkpoints and test datasets from the official LoFTR Google Drive:
+### Step 2: Download Pretrained Weights & Benchmark Datasets
 
-# Pretrained Checkpoints (~45 MB each): Place indoor_ds_new.ckpt and outdoor_ds.ckpt inside weights/.
+Download the pretrained checkpoints and test datasets from the [official LoFTR Google Drive](https://drive.google.com/drive/folders/1DOcOPZb3-5cWxLqn256AhwUVjBPifhuf?usp=sharing).
 
-# Benchmark Test Sets: Download scannet-1500-testset (~1 GB) and megadepth-1500-testset (~600 MB) and link or place them under data/scannet/test and data/megadepth/test:
-# Or you can do it this way
+**Pretrained Checkpoints (~45 MB each):**
+
+Place the following files inside the `weights/` directory:
+
+- `indoor_ds_new.ckpt`
+- `outdoor_ds.ckpt`
+
+**Benchmark Test Sets:**
+
+Download the following datasets:
+
+- `scannet-1500-testset` (~1 GB)
+- `megadepth-1500-testset` (~600 MB)
+
+Place or link the datasets under `data/scannet/test` and `data/megadepth/test`, respectively.
+
+Alternatively, create symbolic links using:
+
+```bash
 ln -s /path/to/scannet-1500-testset/* /path/to/LoFTR/data/scannet/test
 ln -s /path/to/megadepth-1500-testset/* /path/to/LoFTR/data/megadepth/test
-# > **Note on File Paths:** Replace `/path/to/scannet-1500-testset` and `/path/to/megadepth-1500-testset` with the actual absolute or relative paths where you downloaded the test sets on your local machine.
+```
 
+**Note on File Paths:** Replace `/path/to/scannet-1500-testset` and `/path/to/megadepth-1500-testset` with the actual absolute or relative paths where the test datasets were downloaded. Replace `/path/to/LoFTR` with the location of your cloned repository.
 
-# This is the structure your LoFTR folder should have when complete
+### Expected Repository Structure
+
+The LoFTR directory should have the following structure after setup:
+
+```text
 LoFTR/
 ├── data/
 │   ├── scannet/test/
@@ -88,6 +121,7 @@ LoFTR/
 ├── environment.yaml
 ├── requirements.txt
 └── README.md
+```
 
 ### Step 4: Run Verification & Full Benchmark Evaluation
 
