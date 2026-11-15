@@ -46,7 +46,7 @@ During initial diagnostics on a 50-pair MegaDepth subset, median pose error star
 git clone https://github.com/matthewpinto1102-web/LoFTR
 cd LoFTR
 git checkout reproduction-baseline
-
+```
 ## 4. Setup the Environment
 
 ### Step 1: Create and Register Environment
