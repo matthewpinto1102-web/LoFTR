@@ -1,0 +1,12 @@
+{
+    "dataset": "MegaDepth-1500",
+    "model": "LoFTR outdoor dual-softmax",
+    "num_pairs": 1500,
+    "failed_pairs": 9,
+    "auc_5": 0.528,
+    "auc_10": 0.6919,
+    "auc_20": 0.8119,
+    "median_pose_error_deg": 1.8456704070102472,
+    "average_matches": 1711.4986666666666,
+    "average_ransac_inliers": 1003.1293333333333
+}
