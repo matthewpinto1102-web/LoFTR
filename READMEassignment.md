@@ -89,19 +89,40 @@ LoFTR/
 ├── requirements.txt
 └── README.md
 
-Step 4: Run Verification & Full Benchmark Evaluation
-Quick Sanity Check (Single Image Pair):Open notebooks/demo_single_pair.ipynb in VS Code or Jupyter.
-Select the Python (LoFTR) kernel.Run all cells sequentially. 
-A successful run outputs a match visualization showing 843 matches on the sample pair (note: keep .cpu() calls if running without a CUDA GPU, or switch to .cuda() on GPU machines).
-Full 1,500-Pair Benchmark Evaluation (ScanNet-1500 & MegaDepth-1500):Open notebooks/LoFTR_Sethmini_REPRODUCTION_SCNNT_MGDPTH.ipynb with the Python (LoFTR) kernel and verify the dataset root paths (MEGA_ROOT, SCENE_ROOT, and ScanNet paths).
-ScanNet-1500 Pipeline: Loads grayscale image pairs resized to 640x480
-normalizes tensors to [0,1], runs inference with indoor_ds_new.ckpt, and estimates relative pose via RANSAC (thresh=0.5, conf=0.99999).
-MegaDepth-1500 Pipeline: Uses MegaDepthDataset (mode="test", img_resize=840, df=8, img_padding=True, depth_padding=False, min_overlap_score=0.0), passes scale0/scale1 and padding masks, sets temp_bug_fix=False, and runs inference with outdoor_ds.ckpt.
+### Step 4: Run Verification & Full Benchmark Evaluation
 
-Alternatively, you can run the original PyTorch Lightning test scripts from the terminal:
+#### Quick Sanity Check (Single Image Pair)
 
+1. Open `notebooks/demo_single_pair.ipynb` in VS Code or Jupyter.
+2. Select the `Python (LoFTR)` kernel.
+3. Run all notebook cells sequentially.
+4. Verify that a match visualization is generated. The documented sample run produced **843 matches**.
+
+**CPU/GPU Note:** Keep `.cpu()` calls when running without a CUDA-compatible GPU, or use `.cuda()` on a compatible GPU.
+
+#### Reproduction Workflow (Full 1,500-Pair Benchmark)
+
+After completing the environment and dataset setup described above:
+
+1. Open `notebooks/LoFTR_Sethmini_REPRODUCTION_SCNNT_MGDPTH.ipynb` in Jupyter or VS Code.
+2. Select the `Python (LoFTR)` kernel.
+3. Verify the dataset root paths (`MEGA_ROOT`, `SCENE_ROOT`, and ScanNet paths).
+4. Confirm the pretrained checkpoints: `indoor_ds_new.ckpt` for ScanNet and `outdoor_ds.ckpt` for MegaDepth.
+5. Run the notebook cells in the order specified.
+6. Compare the generated AUC@5°, AUC@10°, and AUC@20° values with the reproduction results listed below.
+
+**ScanNet-1500 Pipeline:** Loads grayscale image pairs resized to 640 × 480, normalizes tensors to `[0, 1]`, runs inference with `indoor_ds_new.ckpt`, and estimates relative pose using RANSAC (`thresh=0.5`, `conf=0.99999`).
+
+**MegaDepth-1500 Pipeline:** Uses `MegaDepthDataset` (`mode="test"`, `img_resize=840`, `df=8`, `img_padding=True`, `depth_padding=False`, `min_overlap_score=0.0`), passes `scale0`/`scale1` and padding masks, sets `temp_bug_fix=False`, and runs inference with `outdoor_ds.ckpt`.
+
+#### Alternative: Original PyTorch Lightning Test Scripts
+
+You can also run the original testing scripts from the terminal:
+
+```bash
 bash ./scripts/reproduce_test/indoor_ds.sh
 bash ./scripts/reproduce_test/outdoor_ds.sh
+```
 
 # Sources
 LoFTR: Detector-Free Local Feature Matching with Transformers. Sun, Jiaming; Shen, Zehong; Wang, Yuang; Bao, Hujun; Zhou, Xiaowei. CVPR, 2021.
